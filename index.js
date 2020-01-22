@@ -11,6 +11,14 @@ app.use(bodyParser.json());
 app.use(cors());
 
 var memoryStore = new session.MemoryStore();
+
+app.use(session({
+  secret: 'some secret',
+  resave: false,
+  saveUninitialized: true,
+  store: memoryStore
+}));
+
 var keycloak = new Keycloak({ store: memoryStore });
 
 app.use(keycloak.middleware({
