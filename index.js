@@ -10,6 +10,8 @@ const port = 8080
 app.use(bodyParser.json());
 app.use(cors());
 
+app.set('view engine', 'pug');
+
 var memoryStore = new session.MemoryStore();
 
 app.use(session({
@@ -30,13 +32,18 @@ app.get('/public', (req, res) => res.send('Public  World!'))
 app.get('/protected', keycloak.protect(), (req, res) => res.send('Protected World!'))
 app.get('/', (req, res) => {
   console.log(req);
-  res.json({
+ 
+  var json = {
     "headers": req.headers,
     "url": req.url,
     "method": req.method,
     "params": req.params,
-    "query": req.query
-  });
+    "query": req.query,
+    "kauth": req.kauth,
+    "session": req.session
+  };
+
+  res.render('index', { title: "Index", msg: JSON.stringify(json) });
 
 });
 
