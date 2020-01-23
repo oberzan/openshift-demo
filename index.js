@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
     "session": req.session
   };
 
-  res.render('index', { title: "Index", msg: JSON.stringify(json) });
+  res.render('index', { title: "Index", msg: JSON.stringify(json, null, 4) });
 
 });
 
