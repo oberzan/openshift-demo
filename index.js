@@ -42,8 +42,13 @@ app.get('/', (req, res) => {
     "kauth": req.kauth,
     "session": req.session
   };
+  var user = req.kauth.grant ? req.kauth.grant.access_token.content.preferred_username:undefined;
 
-  res.render('index', { title: "Index", msg: JSON.stringify(json, null, 4) });
+  res.render('index', {
+    title: "Index",
+    msg: JSON.stringify(json, null, 4),
+    user: user
+  });
 
 });
 
